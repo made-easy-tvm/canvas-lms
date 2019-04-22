@@ -1,2 +1,10 @@
 docker_builder:
+  only_if: $CIRRUS_BRANCH == 'master' || $CIRRUS_BRANCH == 'beta' || $CIRRUS_BRANCH == 'stable'
+
+  env:
+    DOCKER_USERNAME: ENCRYPTED[6bd96d109ad6f45fb5b9bad7c19647c73fd64e4bc81348a47f3c646e5738e75d53bdcf2995b8fe86774a84ef424e0dfa]
+    DOCKER_PASSWORD: ENCRYPTED[a0e7716fa5cbee0f39dd1dc9eea74784f07035cd695bc37d0c6445bba31fdd5a262d877ff2314e4723d5c0d54125e5a7]
+
   build_script: docker build -t canvas .
+  login_script: docker login --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+  push_script: docker push madeeasytvm/canvas:$CIRRUS_BRANCH
