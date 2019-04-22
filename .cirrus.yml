@@ -1,0 +1,8 @@
+container:
+  image: docker:stable
+  cpu: 4
+  memory: 16
+
+
+build_task:
+  script: docker build -t canvas .
